@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>قائمة المطعم</title>
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@600;800&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14110f;--card:#1f1a17;--ink:#f6efe4;--mut:#a89d90;--line:#352d27;box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Tajawal,Tahoma,sans-serif}
+h1,h2,h3,b{font-family:Changa,Tahoma,sans-serif}
+header{padding:30px 20px 6px;text-align:center}
+h1{margin:0;font-size:40px;font-weight:800}
+header p{margin:4px 0 0;color:var(--mut)}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:16px 20px}
+.cats button{flex:none;border:1.5px solid var(--line);background:none;color:var(--ink);font:500 15px Tajawal,sans-serif;padding:7px 18px;border-radius:99px;cursor:pointer}
+.cats button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:34px 10px;padding:14px 14px 70px;max-width:900px;margin:auto}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}}
+.dish{background:none;border:0;color:inherit;font:inherit;cursor:pointer;text-align:center;padding:0}
+.orb{position:relative;width:min(150px,38vw);aspect-ratio:1;margin:0 auto 12px}
+.orb::before{content:"";position:absolute;inset:-22%;border-radius:50%;background:radial-gradient(circle,var(--a) 0,transparent 66%);opacity:.5;animation:aura 3.6s ease-in-out infinite}
+.pic{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;animation:spin 40s linear infinite;box-shadow:0 0 0 2px var(--a)}
+.pic svg,.pic img,.pic video{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes aura{50%{transform:scale(1.16);opacity:.85}}
+.dish:hover .pic,.dish:focus-visible .pic{animation-duration:9s}
+.dish b{display:block;font-size:18px;font-weight:600}
+.dish small{color:var(--mut)}
+.dish.off{opacity:.45}
+#shade{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:flex-end;justify-content:center;z-index:5}
+#shade.open{display:flex}
+#sheet{background:var(--card);width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:26px 26px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));animation:up .35s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+#sheet .orb{width:200px;margin:14px auto 22px}
+#sheet .pic{animation-duration:18s}
+#sheet h2{margin:0;font-size:28px;text-align:center}
+#sheet p{color:var(--mut);text-align:center;margin:6px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:16px}
+.chips span{border:1px solid var(--line);border-radius:99px;padding:2px 12px;font-size:14px}
+.sizes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.sizes button{border:1.5px solid var(--line);background:none;color:var(--ink);font:500 15px Tajawal,sans-serif;padding:9px 16px;border-radius:14px;cursor:pointer}
+.sizes button.on{background:var(--a);border-color:var(--a);color:#fff}
+.go{display:block;text-align:center;background:var(--a);color:#fff;text-decoration:none;font:700 17px Tajawal,sans-serif;padding:13px;border-radius:14px}
+.x{position:absolute;margin:-4px 0 0;background:none;border:0;color:var(--mut);font-size:28px;cursor:pointer}
+.msg{text-align:center;color:var(--mut);padding:40px 20px}
+:focus-visible{outline:3px solid #ffd23f;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.pic,.orb::before,#sheet{animation:none}}
+</style>
+</head>
+<body>
+<header><h1 id="t">...</h1><p>اضغط على أي طبق لتعرف مكوناته وأحجامه وأسعاره</p></header>
+<div class="cats" id="cats"></div>
+<main class="grid" id="grid"></main>
+<div id="shade"><div id="sheet" role="dialog" aria-modal="true"></div></div>
+<script type="application/json" id="fb">{"name":"مطعم الفرن (افتراضي)","whatsapp":"00000000","cats":["بيتزا","معكرونة","حلويات"],"items":[{"id":1,"name":"بيتزا مارغريتا","cat":"بيتزا","desc":"عجينة رقيقة وصلصة طماطم طازجة","ing":["طماطم","موزاريلا","ريحان"],"sizes":[{"l":"صغير","p":12},{"l":"وسط","p":18},{"l":"كبير","p":24}],"media":"","aura":"#ff5a36","art":["#c98a4b","#d7263d","#f5f0e1","#2e7d32"],"on":true},{"id":2,"name":"بيتزا الأجبان الأربعة","cat":"بيتزا","desc":"أربعة أنواع جبن على عجينة ذهبية","ing":["موزاريلا","شيدر","بارميزان","جبن أزرق"],"sizes":[{"l":"وسط","p":22},{"l":"كبير","p":29}],"media":"","aura":"#ffc83d","art":["#c98a4b","#f6d365","#fff3c4","#e8a33d"],"on":true},{"id":3,"name":"معكرونة ألفريدو","cat":"معكرونة","desc":"كريمة وجبن مع دجاج مشوي","ing":["كريمة","دجاج","بارميزان"],"sizes":[{"l":"عادي","p":16}],"media":"","aura":"#f2e2b0","art":["#e9d8a6","#f4e9c9","#c9a227","#8a6d1d"],"on":true},{"id":4,"name":"تيراميسو","cat":"حلويات","desc":"طبقات قهوة وكريمة ماسكاربوني","ing":["قهوة","ماسكاربوني","كاكاو"],"sizes":[{"l":"حصة","p":9}],"media":"","aura":"#b5835a","art":["#6f4e37","#c8a27a","#f3e5d0","#3e2a1c"],"on":true}]}</script>
+<script>
+var M,cat="",$=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return"&#"+c.charCodeAt(0)+";"})}
+function art(c){c=c||["#c98a4b","#c0392b","#f1c40f","#27ae60"];var s='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="'+c[0]+'"/><circle cx="50" cy="50" r="41" fill="'+c[1]+'"/><circle cx="50" cy="50" r="37" fill="'+c[2]+'" opacity=".6"/>';for(var i=0;i<16;i++){var a=i*2.4,r=6+(i*7%30);s+='<circle cx="'+(50+r*Math.cos(a)).toFixed(1)+'" cy="'+(50+r*Math.sin(a)).toFixed(1)+'" r="'+(2.5+i%3)+'" fill="'+c[2+i%2]+'"/>'}return s+'</svg>'}
+function media(it){var m=it.media||"";if(/\.mp4$/i.test(m))return'<video src="'+esc(m)+'" muted loop autoplay playsinline></video>';return m?'<img src="'+esc(m)+'" alt="'+esc(it.name)+'">':art(it.art)}
+function lo(it){var p=(it.sizes||[]).map(function(s){return +s.p});return p.length?Math.min.apply(null,p):0}
+function draw(){$("t").textContent=M.name||"";$("cats").innerHTML=["الكل"].concat(M.cats||[]).map(function(c){return'<button class="'+((c==="الكل"&&!cat)||c===cat?"on":"")+'" data-c="'+esc(c==="الكل"?"":c)+'">'+esc(c)+'</button>'}).join("");
+var L=(M.items||[]).filter(function(i){return !cat||i.cat===cat});
+$("grid").innerHTML=L.length?L.map(function(it){return'<button class="dish'+(it.on===false?" off":"")+'" data-id="'+it.id+'" style="--a:'+esc(it.aura||"#ff5a36")+'"><div class="orb"><div class="pic">'+media(it)+'</div></div><b>'+esc(it.name)+'</b><small>من '+lo(it)+' د'+(it.on===false?" · غير متوفر":"")+'</small></button>'}).join(""):'<div class="msg">لا توجد أصناف.</div>'}
+function open(it){var sz=it.sizes||[],k=0;function paint(){$("sheet").innerHTML='<button class="x" aria-label="إغلاق">×</button><div class="orb" style="--a:'+esc(it.aura||"#ff5a36")+'"><div class="pic">'+media(it)+'</div></div><h2>'+esc(it.name)+'</h2><p>'+esc(it.desc)+'</p><div class="chips">'+(it.ing||[]).map(function(x){return"<span>"+esc(x)+"</span>"}).join("")+'</div><div class="sizes">'+sz.map(function(s,i){return'<button class="'+(i===k?"on":"")+'" data-k="'+i+'">'+esc(s.l)+" · "+esc(s.p)+" د</button>"}).join("")+'</div>'+(it.on===false?'<p>غير متوفر حالياً</p>':'<a class="go" style="--a:'+esc(it.aura||"#ff5a36")+'" href="https://wa.me/'+esc(M.whatsapp)+"?text="+encodeURIComponent("أريد طلب: "+it.name+(sz[k]?" ("+sz[k].l+") - "+sz[k].p+" د":""))+'">اطلب عبر واتساب</a>');$("sheet").style.setProperty("--a",it.aura||"#ff5a36")}
+paint();$("shade").classList.add("open");$("sheet").onclick=function(e){var b=e.target.closest("[data-k]");if(b){k=+b.dataset.k;paint()}if(e.target.closest(".x"))close()}}
+function close(){$("shade").classList.remove("open")}
+$("shade").onclick=function(e){if(e.target===this)close()};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
+$("cats").onclick=function(e){var b=e.target.closest("button");if(b){cat=b.dataset.c;draw()}};
+$("grid").onclick=function(e){var b=e.target.closest(".dish");if(!b)return;var it=M.items.filter(function(i){return String(i.id)===b.dataset.id})[0];if(it)open(it)};
+fetch("menu.json").then(function(r){if(!r.ok)throw 0;return r.json()}).catch(function(){return JSON.parse($("fb").textContent)}).then(function(d){M=d;draw()});
+</script>
+</body>
+</html>
